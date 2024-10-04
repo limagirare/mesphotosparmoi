@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site de Photographie</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- En-tête -->
+  <header>
+    <h1>Photographies de limagirare</h1>
+    <nav>
+      <ul>
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="#galeries">Galeries</a></li>
+        <li><a href="#a-propos">À propos</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Page d'accueil -->
+  <section id="accueil">
+    <h2>Bienvenue sur mon site de photographie</h2>
+    <p>Découvrez mes galeries de photos prises autour du monde.</p>
+
+  </section>
+
+  <!-- Galeries -->
+  <section id="galeries">
+    <h2>Galeries</h2>
+    <div class="filter-buttons">
+      <button onclick="filterSelection('all')">Tous</button>
+      <button onclick="filterSelection('art')">art</button>
+      <button onclick="filterSelection('urbain')">Urbain</button>
+      <button onclick="filterSelection('nature')">Nature</button>
+      <button onclick="filterSelection('autre')">autre</button>
+
+    </div>
+
+    <div class="gallery">
+      <div class="photo art">
+        <img src="img/street-art.jpg" alt="layup" onclick="openModal(this)">
+      </div>
+      
+      <div class="photo urbain, photo art">
+        <img src="img/babayaga.jpg" alt="babayaga" onclick="openModal(this)">
+      </div>
+      
+      <div class="photo urbain">
+        <img src="img/nougaro.jpg" alt="claude nougaro" onclick="openModal(this)">
+      </div>
+      
+      <div class="photo autre">
+        <img src="img/voie-feree.jpg" alt="voie feree" onclick="openModal(this)">
+      </div>
+      
+      <div class="photo urbain">
+        <img src="img/cartoucherelibrairie.jpg" alt="librairie de la cartoucherie" onclick="openModal(this)">
+      </div>
+      
+      <div class="photo urbain">
+        <img src="img/cartoucherie.jpg" alt="cartoucherie" onclick="openModal(this)">
+      </div>
+      
+      <div class="photo art">
+        <img src="img/escalier_reflet.jpg" alt="reflet dans un cadre des escaliers" onclick="openModal(this)">
+      </div>
+      
+      <div class="photo nature">
+        <img src="img/fleur.jpg" alt="fleur" onclick="openModal(this)">
+      </div>
+      
+      <div class="photo urbain, photo art">
+        <img src="img/layup.jpg" alt="expo layup" onclick="openModal(this)">
+      </div>
+      
+      <div class="photo autre">
+        <img src="img/mainlumiere.jpg" alt="main et lumiere" onclick="openModal(this)">
+      </div>
+      
+      <div class="photo autre">
+        <img src="img/manequin.jpg" alt="manequin" onclick="openModal(this)">
+      </div>
+      
+      <div class="photo urbain">
+        <img src="img/patrimoine_toulouse.jpg" alt="visite du patrimoine de toulouse" onclick="openModal(this)">
+      </div>
+      
+      <div class="photo autre">
+        <img src="img/reflet.jpg" alt="reflet" onclick="openModal(this)">
+      </div>
+
+
+  </section>
+
+  <div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="img01">
+    <a id="downloadButton" class="download-button" href="#" download>Télécharger</a>
+  </div>
+
+  <!-- À propos -->
+  <section id="a-propos">
+    <h2>À propos</h2>
+    <p>Je suis limagirare, un photographe passionné par la capture de moments uniques.</p>
+
+    <p>Avec des années d'expérience et une vision artistique, je crée des images qui racontent une histoire.</p>
+  </section>
+
+
+  <!-- Pied de page -->
+
+  <p>&copy; 2024 limagirare. Tous droits réservés.</p>
+
+
+  <script src="script.js"></script>
+</body>
+
+</html>
