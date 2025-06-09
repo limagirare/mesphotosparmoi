@@ -1,3 +1,10 @@
+/*
+ * Fichier: style.css
+ * Description: Ce fichier contient les styles CSS pour le site de photographie.
+ * Il gère la mise en page générale, les galeries d'images,
+ * et le comportement du modal d'affichage des photos.
+ */
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -40,8 +47,6 @@ section {
   margin-bottom: 0.5em;
 }
 
-
-
 .filter-buttons {
   text-align: center;
   margin-bottom: 2em;
@@ -62,19 +67,37 @@ section {
   background-color: #555;
 }
 
+/* Style pour la barre de recherche */
+.search-container {
+  margin-bottom: 2em;
+}
+
+#searchInput {
+  width: 50%;
+  padding: 10px;
+  font-size: 1em;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
 .photo {
-  display: none;
+  display: block;
+  /* S'assure que les images sont des blocs */
   margin: 1em;
+  width: calc(33.33% - 2em);
+  /* Trois images par ligne avec des marges */
 }
 
 .photo img {
-  width: 25%;
+  width: 100%;
   height: auto;
   border: 2px solid #333;
   border-radius: 10px;
 }
 
 .download a {
+  /* Cette règle est conservée même si le bouton de téléchargement est supprimé du HTML,
+     au cas où d'autres liens de téléchargement existeraient sur la page. */
   display: inline-block;
   margin: 1em 0;
   padding: 0.5em 1em;
@@ -115,8 +138,7 @@ footer ul li a {
   text-decoration: none;
 }
 
-/* lignes */
-
+/* Styles pour les lignes de la galerie */
 .galerie-apercu {
   display: flex;
   justify-content: center;
@@ -125,7 +147,8 @@ footer ul li a {
 
 .galerie-apercu img {
   margin: 1em;
-  width: calc(33.33% - 2em); /* Trois images par ligne avec des marges */
+  width: calc(33.33% - 2em);
+  /* Trois images par ligne avec des marges */
   height: auto;
   object-fit: cover;
   border: 2px solid #333;
@@ -138,60 +161,139 @@ footer ul li a {
   justify-content: center;
 }
 
-.photo {
-  display: none;
-  margin: 1em;
-  width: calc(33.33% - 2em); /* Trois images par ligne avec des marges */
-}
-
-.photo img {
-  width: 100%;
-  height: auto;
-  border: 2px solid #333;
-  border-radius: 10px;
-}
-
-/* Styles pour le modal */
+/* Styles pour le modal d'image */
 .modal {
   display: none;
+  /* TRÈS IMPORTANT : Le modal est caché par défaut */
   position: fixed;
-  z-index: 1;
+  z-index: 1000;
+  /* Assure que le modal est au-dessus de tout */
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
   background-color: rgba(0, 0, 0, 0.8);
+  /* Fond plus opaque pour un meilleur contraste */
+  /* Ces propriétés seront actives lorsque JavaScript définira display: flex */
+  align-items: center;
+  /* Centrer verticalement le modal-content */
+  justify-content: center;
+  /* Centrer horizontalement le modal-content */
 }
 
 .modal-content {
-  margin: auto;
+  display: flex;
+  /* Utiliser flexbox pour arranger l'image et la description */
+  flex-direction: column;
+  /* Organiser les éléments en colonne */
+  align-items: center;
+  /* Centrer les éléments à l'intérieur horizontalement */
+  width: 90%;
+  /* Ajuster au besoin, mais laisser de l'espace pour le padding */
+  max-width: 800px;
+  /* Augmenté pour donner plus d'espace à l'image */
+  max-height: 90vh;
+  /* Utilise 90% de la hauteur du viewport pour le popup */
+  background-color: white;
+  /* Fond blanc pour l'effet de popup */
+  padding: 20px;
+  /* Padding pour la zone blanche autour de l'image */
+  border-radius: 10px;
+  /* Optionnel: coins arrondis pour le popup */
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4), 0 12px 40px 0 rgba(0, 0, 0, 0.3);
+  /* Ombre plus prononcée */
+  position: relative;
+  /* Très important: devient le conteneur de référence pour les éléments positionnés absolument */
+  animation-name: zoom;
+  animation-duration: 0.6s;
+  overflow-y: auto;
+  /* Permet le défilement si le contenu dépasse la hauteur max */
+}
+
+.modal-content img {
+  max-width: 100%;
+  /* L'image prend 100% de la largeur disponible dans son conteneur */
+  /* Réévalue la hauteur maximale de l'image.
+     max-height: calc(Hauteur_disponible_du_modal_content - Hauteur_caption - Marge_bas_img);
+     Considérons 10px de padding haut/bas pour caption + 15px margin-bottom de l'image + une hauteur de ligne pour caption.
+     Estimons la hauteur de la caption à 40px (1.1em + padding).
+     Donc, environ 40px (caption) + 15px (margin) = 55px à soustraire de la hauteur interne du modal-content.
+     La hauteur interne du modal-content est (max-height - 2*padding) = (90vh - 40px).
+     Donc, max-height pour l'image = (90vh - 40px) - 55px = 90vh - 95px. */
+  max-height: calc(90vh - 95px);
+  height: auto;
+  /* Permet à l'image de conserver ses proportions */
+  object-fit: contain;
+  /* Assure que toute l'image est visible sans être coupée, en conservant le ratio */
   display: block;
-  width: 80%;
-  max-width: 700px;
+  /* S'assure que l'image est un bloc pour un meilleur contrôle du positionnement */
+  margin: 0 auto 15px auto;
+  /* Centre l'image et ajoute une marge en bas */
+}
+
+/* Style pour la description dans le modal */
+.modal-caption {
+  width: 100%;
+  /* Prend toute la largeur disponible dans le popup */
+  text-align: center;
+  color: #333;
+  /* Couleur de texte plus foncée pour être visible sur le fond blanc */
+  padding: 10px 0;
+  /* Padding vertical pour la description */
+  font-size: 1.1em;
+  /* Légèrement plus petit pour la lisibilité */
+  word-wrap: break-word;
+  /* Permet aux longues descriptions de passer à la ligne */
+  box-sizing: border-box;
+  /* Inclut le padding dans la largeur/hauteur totale */
+}
+
+/* Animation pour l'effet de zoom */
+@keyframes zoom {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+
+  /* Commence plus petit et transparent */
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  /* Termine à taille normale et opaque */
 }
 
 .close {
   position: absolute;
-  top: 15px;
-  right: 35px;
-  color: #fff;
-  font-size: 40px;
+  /* Positionné absolument par rapport au .modal-content */
+  top: 10px;
+  /* Ajuster la position par rapport au bord supérieur du popup */
+  right: 15px;
+  /* Ajuster la position par rapport au bord droit du popup */
+  color: #555;
+  /* Couleur plus foncée pour être visible sur le fond blanc */
+  font-size: 30px;
+  /* Taille légèrement réduite pour mieux s'intégrer */
   font-weight: bold;
   cursor: pointer;
+  transition: 0.3s;
+  z-index: 10;
+  /* S'assure qu'il est au-dessus de tout */
 }
 
 .close:hover,
 .close:focus {
-  color: #bbb;
+  color: #000;
   text-decoration: none;
   cursor: pointer;
 }
 
-.download-button {
+/* Les styles du bouton de téléchargement ont été supprimés */
+/* .download-button {
   position: absolute;
-  top: 60px;
-  right: 35px;
+  top: 55px;
+  right: 15px;
   background-color: #333;
   color: white;
   border: none;
@@ -200,19 +302,46 @@ footer ul li a {
   border-radius: 5px;
   font-size: 1em;
   text-decoration: none;
-}
+  z-index: 10;
+} */
 
-.download-button:hover {
+/* .download-button:hover {
   background-color: #555;
-}
+} */
 
-@media only screen and (max-width: 700px) {
+
+/* Media queries pour les écrans plus petits */
+@media only screen and (max-width: 768px) {
   .modal-content {
-    width: 100%;
+    width: 95%;
+    /* Prend plus de place sur les petits écrans */
+    padding: 15px;
+    /* Moins de padding sur les petits écrans */
+    max-height: 95vh;
+    /* Plus de hauteur disponible pour mobile */
   }
 
-  .download-button {
-    top: 45px;
-    right: 15px;
+  .modal-content img {
+    /* Ajuste la hauteur max pour mobile.
+       Estimons 10px padding haut/bas pour caption + 10px margin-bottom de l'image.
+       Hauteur interne du modal-content = (95vh - 2*15px) = 95vh - 30px.
+       Donc, max-height pour l'image = (95vh - 30px) - (40px + 10px) = 95vh - 80px. */
+    max-height: calc(95vh - 80px);
+    margin-bottom: 10px;
+    /* Moins de marge en bas sur mobile */
+  }
+
+  .close {
+    top: 5px;
+    right: 10px;
+    font-size: 25px;
+  }
+
+  /* Les styles du bouton de téléchargement ont été supprimés */
+  /* .download-button { ... } */
+
+  /* Ajustement pour mobile */
+  #searchInput {
+    width: 80%;
   }
 }
