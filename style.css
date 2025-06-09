@@ -8,7 +8,9 @@
 body {
   font-family: Arial, sans-serif;
   margin: 0;
-  padding: 0;
+  /* Ajout d'un padding-top pour compenser l'en-tête fixe */
+  padding-top: 60px;
+  /* Ajustez cette valeur si la hauteur de l'en-tête change */
   background-color: #f4f4f4;
   color: #333;
 }
@@ -16,8 +18,59 @@ body {
 header {
   background-color: #333;
   color: white;
-  padding: 1em 0;
-  text-align: center;
+  /* Utilisation de Flexbox pour l'alignement horizontal */
+  display: flex;
+  align-items: center;
+  /* Centre verticalement les éléments */
+  justify-content: space-between;
+  /* Espace les éléments: gauche, centre, droite */
+  padding: 0.5em 2em;
+  /* Padding vertical et horizontal pour l'en-tête */
+  /* Ancrer l'en-tête en haut de la page */
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  /* Assure que l'en-tête est au-dessus des autres éléments */
+  box-sizing: border-box;
+  /* Inclut le padding dans la largeur totale */
+}
+
+/* Ajustement du titre h1 dans l'en-tête */
+header h1 {
+  margin: 0;
+  /* Réinitialise les marges par défaut */
+  /* text-align: center; est maintenant géré par justify-content: space-between */
+}
+
+/* Styles pour le lien Instagram dans l'en-tête (maintenant un élément Flexbox) */
+.instagram-link {
+  /* Retiré position: absolute et ses propriétés associées */
+  display: flex;
+  /* Permet d'aligner l'icône et le texte */
+  align-items: center;
+  /* Centre verticalement l'icône et le texte */
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.instagram-link img {
+  height: 30px;
+  /* Taille de l'icône */
+  width: 30px;
+  margin-right: 5px;
+  /* Espace entre l'icône et le texte */
+}
+
+.instagram-link span {
+  font-size: 1em;
+  /* Taille du texte "Instagram" */
+}
+
+.instagram-link:hover {
+  opacity: 0.8;
+  /* Effet de survol */
 }
 
 nav ul {
@@ -82,10 +135,8 @@ section {
 
 .photo {
   display: block;
-  /* S'assure que les images sont des blocs */
   margin: 1em;
   width: calc(33.33% - 2em);
-  /* Trois images par ligne avec des marges */
 }
 
 .photo img {
@@ -96,8 +147,6 @@ section {
 }
 
 .download a {
-  /* Cette règle est conservée même si le bouton de téléchargement est supprimé du HTML,
-     au cas où d'autres liens de téléchargement existeraient sur la page. */
   display: inline-block;
   margin: 1em 0;
   padding: 0.5em 1em;
@@ -148,7 +197,6 @@ footer ul li a {
 .galerie-apercu img {
   margin: 1em;
   width: calc(33.33% - 2em);
-  /* Trois images par ligne avec des marges */
   height: auto;
   object-fit: cover;
   border: 2px solid #333;
@@ -164,88 +212,52 @@ footer ul li a {
 /* Styles pour le modal d'image */
 .modal {
   display: none;
-  /* TRÈS IMPORTANT : Le modal est caché par défaut */
   position: fixed;
   z-index: 1000;
-  /* Assure que le modal est au-dessus de tout */
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
-  /* Fond plus opaque pour un meilleur contraste */
-  /* Ces propriétés seront actives lorsque JavaScript définira display: flex */
   align-items: center;
-  /* Centrer verticalement le modal-content */
   justify-content: center;
-  /* Centrer horizontalement le modal-content */
 }
 
 .modal-content {
   display: flex;
-  /* Utiliser flexbox pour arranger l'image et la description */
   flex-direction: column;
-  /* Organiser les éléments en colonne */
   align-items: center;
-  /* Centrer les éléments à l'intérieur horizontalement */
   width: 90%;
-  /* Ajuster au besoin, mais laisser de l'espace pour le padding */
   max-width: 800px;
-  /* Augmenté pour donner plus d'espace à l'image */
   max-height: 90vh;
-  /* Utilise 90% de la hauteur du viewport pour le popup */
   background-color: white;
-  /* Fond blanc pour l'effet de popup */
   padding: 20px;
-  /* Padding pour la zone blanche autour de l'image */
   border-radius: 10px;
-  /* Optionnel: coins arrondis pour le popup */
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4), 0 12px 40px 0 rgba(0, 0, 0, 0.3);
-  /* Ombre plus prononcée */
   position: relative;
-  /* Très important: devient le conteneur de référence pour les éléments positionnés absolument */
   animation-name: zoom;
   animation-duration: 0.6s;
   overflow-y: auto;
-  /* Permet le défilement si le contenu dépasse la hauteur max */
 }
 
 .modal-content img {
   max-width: 100%;
-  /* L'image prend 100% de la largeur disponible dans son conteneur */
-  /* Réévalue la hauteur maximale de l'image.
-     max-height: calc(Hauteur_disponible_du_modal_content - Hauteur_caption - Marge_bas_img);
-     Considérons 10px de padding haut/bas pour caption + 15px margin-bottom de l'image + une hauteur de ligne pour caption.
-     Estimons la hauteur de la caption à 40px (1.1em + padding).
-     Donc, environ 40px (caption) + 15px (margin) = 55px à soustraire de la hauteur interne du modal-content.
-     La hauteur interne du modal-content est (max-height - 2*padding) = (90vh - 40px).
-     Donc, max-height pour l'image = (90vh - 40px) - 55px = 90vh - 95px. */
   max-height: calc(90vh - 95px);
   height: auto;
-  /* Permet à l'image de conserver ses proportions */
   object-fit: contain;
-  /* Assure que toute l'image est visible sans être coupée, en conservant le ratio */
   display: block;
-  /* S'assure que l'image est un bloc pour un meilleur contrôle du positionnement */
   margin: 0 auto 15px auto;
-  /* Centre l'image et ajoute une marge en bas */
 }
 
 /* Style pour la description dans le modal */
 .modal-caption {
   width: 100%;
-  /* Prend toute la largeur disponible dans le popup */
   text-align: center;
   color: #333;
-  /* Couleur de texte plus foncée pour être visible sur le fond blanc */
   padding: 10px 0;
-  /* Padding vertical pour la description */
   font-size: 1.1em;
-  /* Légèrement plus petit pour la lisibilité */
   word-wrap: break-word;
-  /* Permet aux longues descriptions de passer à la ligne */
   box-sizing: border-box;
-  /* Inclut le padding dans la largeur/hauteur totale */
 }
 
 /* Animation pour l'effet de zoom */
@@ -255,31 +267,22 @@ footer ul li a {
     opacity: 0;
   }
 
-  /* Commence plus petit et transparent */
   to {
     transform: scale(1);
     opacity: 1;
   }
-
-  /* Termine à taille normale et opaque */
 }
 
 .close {
   position: absolute;
-  /* Positionné absolument par rapport au .modal-content */
   top: 10px;
-  /* Ajuster la position par rapport au bord supérieur du popup */
   right: 15px;
-  /* Ajuster la position par rapport au bord droit du popup */
   color: #555;
-  /* Couleur plus foncée pour être visible sur le fond blanc */
   font-size: 30px;
-  /* Taille légèrement réduite pour mieux s'intégrer */
   font-weight: bold;
   cursor: pointer;
   transition: 0.3s;
   z-index: 10;
-  /* S'assure qu'il est au-dessus de tout */
 }
 
 .close:hover,
@@ -289,46 +292,136 @@ footer ul li a {
   cursor: pointer;
 }
 
-/* Les styles du bouton de téléchargement ont été supprimés */
-/* .download-button {
+/* --- Styles pour le Carrousel --- */
+.carousel-container {
+  position: relative;
+  width: 80%;
+  max-width: 900px;
+  margin: 30px auto;
+  overflow: hidden;
+  border: 2px solid #333;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-slides {
+  display: flex;
+  width: 100%;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  height: 400px;
+  object-fit: cover;
+  display: block;
+}
+
+.carousel-button {
   position: absolute;
-  top: 55px;
-  right: 15px;
-  background-color: #333;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
   color: white;
   border: none;
-  padding: 0.5em 1em;
+  padding: 10px 15px;
   cursor: pointer;
+  font-size: 1.5em;
   border-radius: 5px;
-  font-size: 1em;
-  text-decoration: none;
-  z-index: 10;
-} */
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
 
-/* .download-button:hover {
-  background-color: #555;
-} */
+.carousel-button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
 
+.carousel-button.prev {
+  left: 10px;
+}
 
-/* Media queries pour les écrans plus petits */
+.carousel-button.next {
+  right: 10px;
+}
+
+.carousel-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.carousel-dot {
+  width: 12px;
+  height: 12px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.carousel-dot.active {
+  background-color: #333;
+  transform: scale(1.2);
+}
+
+/* Media queries pour les écrans plus petits (mobile) */
 @media only screen and (max-width: 768px) {
+
+  /* En-tête pour mobile */
+  header {
+    flex-wrap: wrap;
+    /* Permet aux éléments de l'en-tête de passer à la ligne si l'espace est insuffisant */
+    justify-content: center;
+    /* Centre les éléments lorsqu'ils sont enveloppés */
+    padding: 0.5em 1em;
+    /* Ajuste le padding pour mobile */
+  }
+
+  /* Ajustement de l'ordre et de la taille des éléments de l'en-tête sur mobile */
+  .instagram-link {
+    width: 100%;
+    /* Prend toute la largeur disponible */
+    justify-content: center;
+    /* Centre le lien Instagram */
+    margin-bottom: 5px;
+    /* Ajoute un petit espace en dessous */
+  }
+
+  header h1 {
+    width: 100%;
+    /* Prend toute la largeur disponible pour être centré */
+    text-align: center;
+    /* Centre le texte du titre */
+    order: -1;
+    /* Place le titre en premier si les éléments s'enveloppent */
+    margin-bottom: 5px;
+  }
+
+  nav {
+    width: 100%;
+    /* Prend toute la largeur pour la navigation */
+    margin-top: 5px;
+    /* Ajoute un espace au-dessus */
+  }
+
+  nav ul {
+    justify-content: center;
+    /* Centre les éléments de la liste de navigation */
+  }
+
+  /* Autres ajustements responsifs */
   .modal-content {
     width: 95%;
-    /* Prend plus de place sur les petits écrans */
     padding: 15px;
-    /* Moins de padding sur les petits écrans */
     max-height: 95vh;
-    /* Plus de hauteur disponible pour mobile */
   }
 
   .modal-content img {
-    /* Ajuste la hauteur max pour mobile.
-       Estimons 10px padding haut/bas pour caption + 10px margin-bottom de l'image.
-       Hauteur interne du modal-content = (95vh - 2*15px) = 95vh - 30px.
-       Donc, max-height pour l'image = (95vh - 30px) - (40px + 10px) = 95vh - 80px. */
     max-height: calc(95vh - 80px);
     margin-bottom: 10px;
-    /* Moins de marge en bas sur mobile */
   }
 
   .close {
@@ -337,11 +430,31 @@ footer ul li a {
     font-size: 25px;
   }
 
-  /* Les styles du bouton de téléchargement ont été supprimés */
-  /* .download-button { ... } */
-
-  /* Ajustement pour mobile */
   #searchInput {
     width: 80%;
+  }
+
+  .carousel-container {
+    width: 95%;
+    margin: 20px auto;
+  }
+
+  .carousel-slide {
+    height: 250px;
+  }
+
+  .carousel-button {
+    padding: 8px 12px;
+    font-size: 1.2em;
+  }
+
+  .carousel-dots {
+    bottom: 5px;
+    gap: 6px;
+  }
+
+  .carousel-dot {
+    width: 10px;
+    height: 10px;
   }
 }
