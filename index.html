@@ -13,6 +13,10 @@
 <body>
   <header>
     <h1>mes photos par moi</h1>
+    <!-- Lien Instagram corrigé et intégré -->
+    <a href="https://www.instagram.com/mes_photos_par_moi/" target="_blank" class="instagram-link">
+      <img src="insta/icons8-instagram-40.svg" alt="Instagram Logo">
+    </a>
     <nav>
       <ul>
         <li><a href="#accueil">Accueil</a></li>
@@ -42,7 +46,22 @@
     <div class="search-container">
       <input type="text" id="searchInput" onkeyup="searchPhotos()" placeholder="Rechercher par nom ou description...">
     </div>
+
+    <!-- Section Carrousel déplacée pour être un composant distinct -->
+    <div class="carousel-container">
+      <div class="carousel-slides">
+        <!-- Les images du carrousel seront insérées ici DYNAMIQUEMENT par script.js -->
+      </div>
+      <button class="carousel-button prev">&#10094;</button>
+      <button class="carousel-button next">&#10095;</button>
+      <div class="carousel-dots">
+        <!-- Les points de pagination seront insérés ici DYNAMIQUEMENT par script.js -->
+      </div>
+    </div>
+    <!-- Fin de la section Carrousel -->
+
     <div class="gallery">
+      <!-- Toutes les images de la galerie principale doivent être ici -->
       <div class="photo art">
         <img src="img/street-art.jpg" alt="layup" onclick="openModal(this)">
       </div>
@@ -224,7 +243,8 @@
         <img src="img/chambord-reflet.jpg" alt="reflet du chateau de chambord" onclick="openModal(this)">
       </div>
       <div class="photo urbain">
-        <img src="img/colonne-escalier-chammbord.jpg" alt="centre de l'escalier du chateau de chambord" onclick="openModal(this)">
+        <img src="img/colonne-escalier-chammbord.jpg" alt="centre de l'escalier du chateau de chambord"
+          onclick="openModal(this)">
       </div>
       <div class="photo autre">
         <img src="img/zebre.jpg" alt="zebre zoo de beauval" onclick="openModal(this)">
@@ -266,7 +286,8 @@
         <img src="img/toit-ametller.jpg" alt="toit de la casa ametller (barcelonne)" onclick="openModal(this)">
       </div>
       <div class="photo event">
-        <img src="img/etoile-boule.jpg" alt="étoile sur la place de la mairie de barcelonne pour noel" onclick="openModal(this)">
+        <img src="img/etoile-boule.jpg" alt="étoile sur la place de la mairie de barcelonne pour noel"
+          onclick="openModal(this)">
       </div>
       <div class="photo autre">
         <img src="img/guitariste.jpg" alt="guitariste dans le métro barcelonais" onclick="openModal(this)">
@@ -284,7 +305,8 @@
         <img src="img/duocanards.png" alt="deux canards au jardin des plantes(tououse)" onclick="openModal(this)">
       </div>
       <div class="photo nature">
-        <img src="img/jdlftete.png" alt="statue de jean de la fontaine au jardin des plantes(tououse)" onclick="openModal(this)">
+        <img src="img/jdlftete.png" alt="statue de jean de la fontaine au jardin des plantes(tououse)"
+          onclick="openModal(this)">
       </div>
       <div class="photo nature">
         <img src="img/paquerette.png" alt="paquerette au jardin des plantes(tououse)" onclick="openModal(this)">
@@ -292,6 +314,7 @@
       <div class="photo nature">
         <img src="img/poule1.png" alt="poule au jardin des plantes(tououse)" onclick="openModal(this)">
       </div>
+    </div>
   </section>
   <!-- Le Modal (popup) -->
   <div id="myModal" class="modal">
